@@ -1,6 +1,7 @@
 pub mod utils;
 pub mod ui;
 pub mod state;
+pub mod core;
 
 pub fn add(left: usize, right: usize) -> usize {
     left + right

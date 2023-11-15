@@ -5,7 +5,7 @@ use crossterm::{
 };
 use ratatui::{backend::CrosstermBackend, widgets::Paragraph, Frame, Terminal};
 
-use crate::state::app::App;
+use crate::core::app::App;
 
 pub type Err = Box<dyn std::error::Error>;
 pub type Result<T> = std::result::Result<T, Err>;
