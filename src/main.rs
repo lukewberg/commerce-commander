@@ -1,7 +1,7 @@
 use commerce_commander::core::{
     app::App,
     event::{Event, EventHandler},
-    init::{run, shutdown, startup, Err, Result},
+    init::{Err, Result},
     tui::Tui,
     update::update,
 };

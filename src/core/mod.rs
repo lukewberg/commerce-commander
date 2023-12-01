@@ -4,3 +4,7 @@ pub mod event;
 pub mod tui;
 pub mod ui;
 pub mod update;
+pub mod view;
+pub mod navigator;
+pub mod action;
+pub mod config;

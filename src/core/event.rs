@@ -1,10 +1,10 @@
+use crate::core::init::{Err, Result};
 use crossterm::event::{self, KeyEvent, MouseEvent};
 use std::{
     sync::mpsc,
     thread,
     time::{Duration, Instant},
 };
-use crate::core::init::{Err, Result};
 
 #[derive(Clone, Copy, Debug)]
 pub enum Event {

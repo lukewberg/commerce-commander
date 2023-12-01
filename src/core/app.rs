@@ -3,6 +3,7 @@ pub struct App {
     pub client_id: String,
     pub should_quit: bool,
     pub counter: u16,
+    // pub current_screen:
 }
 
 impl App {
