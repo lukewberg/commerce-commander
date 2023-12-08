@@ -1,10 +1,10 @@
-use commerce_commander::core::{
+use commerce_commander::{core::{
     app::App,
     event::{Event, EventHandler},
     init::{Err, Result},
     tui::Tui,
-    update::update,
-};
+    update::update, navigator::{Navigator, Route},
+}, components::test::Test};
 use ratatui::{backend::CrosstermBackend, Terminal};
 
 fn main() -> Result<()> {
@@ -13,6 +13,7 @@ fn main() -> Result<()> {
         String::from("Keep it secret, keep it safe!"),
         String::from("Hello world!"),
     );
+    // let mut navigator = Navigator::new(vec![Route::new("/", Box::new(Test {}))]);
 
     // Initialize the terminal user interface.
     let backend = CrosstermBackend::new(std::io::stderr());
@@ -24,6 +25,7 @@ fn main() -> Result<()> {
     // Start the main loop.
     while !app.should_quit {
         // Render the user interface.
+        // navigator.run(f);
         tui.draw(&mut app)?;
         // Handle events.
         match tui.events.next()? {

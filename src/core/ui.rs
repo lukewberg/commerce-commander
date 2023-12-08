@@ -9,10 +9,10 @@ use crate::{core::app::App, components::test::Test};
 use super::navigator::{Navigator, Route};
 
 pub fn render(app: &mut App, f: &mut Frame) {
-  let mut navigator = Navigator::new(vec![
-    Route::new("/", Box::new(Test{}))
-  ]);
-  navigator.run(f);
+  // let mut navigator = Navigator::new(vec![
+  //   Route::new("/", Box::new(Test{}))
+  // ]);
+  // navigator.run(f);
   // f.render_widget(
   //   Paragraph::new(format!(
   //     "

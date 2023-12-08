@@ -1,18 +1,20 @@
-use std::cell::RefCell;
+use std::{cell::RefCell, rc::Rc};
 
 use super::view::View;
 use ahash::{HashMap, HashMapExt};
 use ratatui::Frame;
 
-pub struct Navigator {
+pub struct Navigator<T> {
     routes: HashMap<String, RefCell<Route>>,
     stack: Vec<String>,
+    state: Rc<RefCell<T>>,
 }
 
-impl Navigator {
-    pub fn new(routes: Vec<Route>) -> Self {
+impl<T> Navigator<T> {
+    pub fn new(routes: Vec<Route>, state: T) -> Self {
         let mut route_map = HashMap::<String, RefCell<Route>>::with_capacity(routes.len());
         let mut stack = Vec::<String>::with_capacity(10);
+        let state = Rc::new(RefCell::new(state));
         stack.push(routes[0].route.to_owned());
         for route in routes {
             route_map.insert(route.route.clone(), RefCell::new(route));
@@ -20,6 +22,7 @@ impl Navigator {
         Navigator {
             routes: route_map,
             stack,
+            state,
         }
     }
 
@@ -43,6 +46,17 @@ impl Navigator {
     pub fn back(&mut self) {
         self.stack.pop();
     }
+
+    // pub fn context<State>() -> State {
+
+    // }
+    
+}
+
+impl<T> View for Navigator<T> {
+    fn draw(&mut self, f: &mut Frame<'_>) -> super::init::Result<()> {
+        todo!()
+    }
 }
 
 pub struct Route {
@@ -53,6 +67,10 @@ pub struct Route {
 
 impl Route {
     pub fn new(route: &str, view: Box<dyn View>) -> Self {
-        Route { route: route.to_string(), view, id: 2 }
+        Route {
+            route: route.to_string(),
+            view,
+            id: 2,
+        }
     }
 }
