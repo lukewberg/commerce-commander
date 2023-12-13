@@ -28,19 +28,21 @@ impl ProjTemplating {
                 fs::create_dir(&home).expect("Unable to create template repositories directory!");
             }
         }
-        if let Ok(repo) = Repository::clone(&(*url), &home) {
-            let repo_dir = repo.path().parent();
-            let manifest = fs::read_to_string(format!("{:?}/manifest.json", repo_dir)).expect("Unable to read Manifest.json!");
+        let repo_dir = format!("{}/{}", &home, ProjTemplating::parse_repo_name(&url));
+        if let Ok(repo) = Repository::clone(&(*url), &repo_dir) {
+            let manifest = fs::read_to_string(format!("{}/manifest.json", repo_dir)).expect("Unable to read Manifest.json!");
             let mut res: TemplateRepositories = serde_json::from_str(&(*manifest)).expect("msg");
             println!("{:?}", res.repos);
         }
     }
 
-    pub fn parse_repo_name(url: String) -> String {
+    pub fn parse_repo_name(url: &String) -> String {
         // let mut split: Vec<&str> = url.split("/").collect();
         // let repo_name = split.pop().unwrap().split(".").
         // String::from(split.pop().unwrap())
-        let re = Regex::new(r"[a-zA-Z0-9-_]*(\.git)gm");
+        let re = Regex::new(r"(?P<name>[a-zA-Z0-9-_]*)(\.git)").unwrap();
+        let repo_name = re.captures(&(*url)).unwrap();
+        String::from(&repo_name["name"])
     }
 
     pub fn refresh_templates(&self) {}
